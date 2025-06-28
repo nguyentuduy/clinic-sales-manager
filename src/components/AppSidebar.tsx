@@ -32,8 +32,9 @@ const menuItems = [
 ];
 
 export function AppSidebar() {
-  const { collapsed } = useSidebar();
+  const { state } = useSidebar();
   const location = useLocation();
+  const isCollapsed = state === "collapsed";
   
   const getNavClassName = (isActive: boolean) =>
     `flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
@@ -43,14 +44,14 @@ export function AppSidebar() {
     }`;
 
   return (
-    <Sidebar className={collapsed ? "w-14" : "w-64"} collapsible>
+    <Sidebar className={isCollapsed ? "w-14" : "w-64"} collapsible="icon">
       <SidebarContent className="p-4">
         <div className="mb-6">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 medical-gradient rounded-lg flex items-center justify-center">
               <Pill className="w-5 h-5 text-white" />
             </div>
-            {!collapsed && (
+            {!isCollapsed && (
               <div>
                 <h1 className="font-bold text-lg text-sidebar-primary">MedStore</h1>
                 <p className="text-xs text-sidebar-foreground/70">Quản lý nhà thuốc</p>
@@ -61,7 +62,7 @@ export function AppSidebar() {
 
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs font-semibold text-sidebar-foreground/70 mb-2">
-            {!collapsed && "MENU CHÍNH"}
+            {!isCollapsed && "MENU CHÍNH"}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
@@ -74,7 +75,7 @@ export function AppSidebar() {
                       className={({ isActive }) => getNavClassName(isActive)}
                     >
                       <item.icon className="w-5 h-5 flex-shrink-0" />
-                      {!collapsed && <span className="font-medium">{item.title}</span>}
+                      {!isCollapsed && <span className="font-medium">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
