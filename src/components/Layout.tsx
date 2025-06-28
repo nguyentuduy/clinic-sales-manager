@@ -24,13 +24,22 @@ export function Layout({ children }: LayoutProps) {
             </div>
             
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="icon" className="relative">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="relative"
+                onClick={() => console.log('Notifications clicked')}
+              >
                 <Bell className="w-5 h-5" />
                 <span className="absolute -top-1 -right-1 w-3 h-3 bg-destructive rounded-full flex items-center justify-center text-xs text-white">
                   3
                 </span>
               </Button>
-              <Button variant="ghost" size="icon">
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => console.log('User profile clicked')}
+              >
                 <User className="w-5 h-5" />
               </Button>
             </div>

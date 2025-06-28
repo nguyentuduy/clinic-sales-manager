@@ -37,7 +37,7 @@ export function AppSidebar() {
   const isCollapsed = state === "collapsed";
   
   const getNavClassName = (isActive: boolean) =>
-    `flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
+    `flex items-center gap-3 px-3 py-2 rounded-lg transition-colors w-full ${
       isActive
         ? "bg-primary text-primary-foreground"
         : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
@@ -66,20 +66,23 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
-              {menuItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink
-                      to={item.url}
-                      end
-                      className={({ isActive }) => getNavClassName(isActive)}
-                    >
-                      <item.icon className="w-5 h-5 flex-shrink-0" />
-                      {!isCollapsed && <span className="font-medium">{item.title}</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {menuItems.map((item) => {
+                const isActive = location.pathname === item.url;
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <NavLink
+                        to={item.url}
+                        end
+                        className={() => getNavClassName(isActive)}
+                      >
+                        <item.icon className="w-5 h-5 flex-shrink-0" />
+                        {!isCollapsed && <span className="font-medium">{item.title}</span>}
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
